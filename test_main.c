@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/18 17:58:40 by edeveze           #+#    #+#             */
-/*   Updated: 2016/12/19 00:01:21 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/01/02 17:31:51 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,5 @@ int main(int argc, char **argv)
             }
         close(fd);
     }
-    printf("\n");
     return (0);
 }
