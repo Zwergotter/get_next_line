@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/18 17:32:13 by edeveze           #+#    #+#             */
-/*   Updated: 2017/01/02 22:59:50 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/01/03 15:40:12 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void line_read(char **line, char **saved)
 int get_next_line(const int fd, char **line)
 {
     static char *saved = NULL;
-    char buf[BUFF_SIZE];
+    char buf[BUFF_SIZE + 1];
     char *tmp;
     int ret;
 
@@ -53,13 +53,10 @@ int get_next_line(const int fd, char **line)
     while ((ret = read(fd, buf, BUFF_SIZE)) > 0)
     {
         buf[ret] = '\0';
-        printf("Test1\n");
         tmp = saved;
-        printf("Test2\n");
         saved = ft_strjoin(saved, buf);
         if (saved == NULL)
             return (-1);
-        printf("Test\n");
         if (tmp)
             free(tmp);
         if (ft_strchr(saved, '\n'))
