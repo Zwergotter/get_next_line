@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/18 17:32:13 by edeveze           #+#    #+#             */
-/*   Updated: 2017/01/03 15:40:12 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/01/03 16:22:15 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ void line_read(char **line, char **saved)
 
     temp = *saved;
     newline = find_character(temp);
-    *line = ft_strsub(temp, 0, newline - 1);
+    if (newline == 1)
+        *line = ft_strnew(0);
+    else
+        *line = ft_strsub(temp, 0, newline - 1);
     // *saved = ft_strsub(temp, newline, ft_strlen(temp) - (newline - 1));
     *saved = ft_strdup(temp + newline);
     free(temp);
