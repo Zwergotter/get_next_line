@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/18 17:32:13 by edeveze           #+#    #+#             */
-/*   Updated: 2017/01/12 12:13:21 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/01/13 18:20:21 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,42 @@ int		get_next_line(const int fd, char **line)
 			return (-1);
 		if (tmp)
 			free(tmp);
+		/*if (ret < BUFF_SIZE && ft_strchr(saved, '\n') == NULL)
+		{
+			printf("Start loop - Line value is : %s\n", *line);
+			*line = ft_strdup(saved);
+			printf("Dup done - Line value is : %s\n", *line);
+			free(saved);
+			return (0);
+		}
+		printf("After loop - Line value is : %s\n", *line);*/
 		if (ft_strchr(saved, '\n'))
 			break ;
 	}
+	if (ret < 0)
+		return (-1);
+	if (ret < 1 && !ft_strchr(saved, '\n'))
+	{
+		if (saved != NULL && saved[0] != '\0')
+		{
+			*line = saved;
+			saved = NULL;
+			return (1);
+		}
+		else
+		{
+			if (saved != NULL)
+			{
+				free(saved);
+				saved = NULL;
+			}
+			*line = NULL;
+			return (0);
+		}
+	}
 	line_read(line, &saved);
 	// printf("ret = %d | line = \"%s\" | saved = \"%s\"\n", ret, *line, saved);
-	if (ret <= 0 && **line == '\0' && *saved == '\0')
+	if (ret == 0 && **line == '\0' && *saved == '\0')
 	{
 		free(saved);
 		saved = NULL;
