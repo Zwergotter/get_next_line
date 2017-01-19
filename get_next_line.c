@@ -6,12 +6,11 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/18 17:32:13 by edeveze           #+#    #+#             */
-/*   Updated: 2017/01/19 15:43:37 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/01/19 16:08:43 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h> ///why oh why?????????????????????????????????????????????????????????????????????????????????????????
 
 int		find_character(char *str)
 {
@@ -72,17 +71,11 @@ int		get_next_line(const int fd, char **line)
 		return (-1);
 	if (ret < 1 && !ft_strchr(saved, '\n'))
 	{
-		if (saved != NULL && saved[0] != '\0')
-		{
-			*line = saved;
-			saved = NULL;
-			return (1);
-		}
-		else
-		{
-			*line = NULL;
+		*line = saved;
+		if (saved == NULL || saved[0] == '\0')
 			return (0);
-		}
+		saved = NULL;
+		return (1);
 	}
 	line_read(line, &saved);
 	return (1);
