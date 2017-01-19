@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/18 17:32:13 by edeveze           #+#    #+#             */
-/*   Updated: 2017/01/19 15:28:11 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/01/19 15:43:37 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,10 @@ int		get_next_line(const int fd, char **line)
 	while ((ret = read(fd, buf, BUFF_SIZE)) > 0)
 	{
 		fill_it(buf, ret, &saved);
-		if (saved == NULL)
-			return (-1);
-		if (ft_strchr(saved, '\n'))
+		if ((saved == NULL) || ft_strchr(saved, '\n'))
 			break ;
 	}
-	if (ret < 0)
+	if (ret < 0 || saved == NULL)
 		return (-1);
 	if (ret < 1 && !ft_strchr(saved, '\n'))
 	{
@@ -82,11 +80,6 @@ int		get_next_line(const int fd, char **line)
 		}
 		else
 		{
-			if (saved != NULL)
-			{
-				free(saved);
-				saved = NULL;
-			}
 			*line = NULL;
 			return (0);
 		}
