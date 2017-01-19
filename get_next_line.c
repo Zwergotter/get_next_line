@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/18 17:32:13 by edeveze           #+#    #+#             */
-/*   Updated: 2017/01/19 16:08:43 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/01/19 16:11:49 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		find_character(char *str)
 	return (0);
 }
 
-void	fill_it(char *buf, int ret, char **saved)
+void	fill_saved(char *buf, int ret, char **saved)
 {
 	char		*tmp;
 
@@ -63,7 +63,7 @@ int		get_next_line(const int fd, char **line)
 		return (-1);
 	while ((ret = read(fd, buf, BUFF_SIZE)) > 0)
 	{
-		fill_it(buf, ret, &saved);
+		fill_saved(buf, ret, &saved);
 		if ((saved == NULL) || ft_strchr(saved, '\n'))
 			break ;
 	}
