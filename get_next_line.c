@@ -6,11 +6,15 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/18 17:32:13 by edeveze           #+#    #+#             */
-/*   Updated: 2017/01/20 16:52:01 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/01/20 18:50:14 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+/*
+** Searches newline in string passed as argument. Returns its position or 0.
+*/
 
 int		find_character(char *str)
 {
@@ -51,8 +55,11 @@ void	fill_saved(char *buf, int ret, char **saved)
 ** Creates a int newline and a char *temp.
 ** temp stores what there's in saved.
 ** newline calls find_character to know where in temp there is nl.
-** If newline = 1, nl is at the beginning. So line is created with strnew(0);
-** Else
+** If newline = 1, nl is at the beginning. So line is created with strnew(0).
+** Else, line is created with strsub, thanks to temp. It starts at the beginning
+** and copies it before newline's position.
+** saved is created thanks to a strdup after newline's position.
+** Finally temp is freed.
 */
 
 void	line_read(char **line, char **saved)
