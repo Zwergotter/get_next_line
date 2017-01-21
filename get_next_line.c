@@ -45,9 +45,13 @@ void	fill_saved(char *buf, int ret, char **saved)
 
 	buf[ret] = '\0';
 	tmp = *saved;
-	*saved = ft_strjoin(*saved, buf);
 	if (tmp)
+	{
+		*saved = ft_strjoin(*saved, buf);
 		free(tmp);
+	}
+	else
+		*saved = ft_strdup(buf);
 }
 
 /*
