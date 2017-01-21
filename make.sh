@@ -1,2 +1,2 @@
 #!/bin/bash
-gcc -g -Wall -Wextra -Werror get_next_line.c get_next_line.h test_main.c ./Libft/ft_strsub.c ./Libft/ft_strlen.c ./Libft/ft_strnew.c ./Libft/ft_bzero.c ./Libft/ft_memset.c ./Libft/ft_strdel.c ./Libft/ft_strdup.c  ./Libft/ft_memalloc.c ./Libft/ft_strcat.c ./Libft/ft_strchr.c ./Libft/ft_strcpy.c ./Libft/ft_strjoin.c -I ./Libft
+gcc -Wall -Wextra -Werror get_next_line.c get_next_line.h test_main.c ./libft/ft_strsub.c ./libft/ft_strlen.c ./libft/ft_strnew.c ./libft/ft_bzero.c ./libft/ft_memset.c ./libft/ft_strdel.c ./libft/ft_strdup.c  ./libft/ft_memalloc.c ./libft/ft_strcat.c ./libft/ft_strchr.c ./libft/ft_strcpy.c ./libft/ft_strjoin.c -I ./libft/includes
