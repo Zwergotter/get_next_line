@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/18 17:32:13 by edeveze           #+#    #+#             */
-/*   Updated: 2017/01/22 10:59:57 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/01/22 11:14:08 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ int		get_next_line(const int fd, char **line)
 		*line = saved;
 		if (saved == NULL || saved[0] == '\0')
 			return (0);
-		free(saved);
 		saved = NULL;
 		return (1);
 	}
