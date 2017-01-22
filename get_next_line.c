@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/18 17:32:13 by edeveze           #+#    #+#             */
-/*   Updated: 2017/01/20 18:50:14 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/01/22 10:59:57 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,17 @@ int		find_character(char *str)
 	int	i;
 
 	i = 0;
-	while (*str && *str != '\n')
-	{
+	while (str[i] && str[i] != '\n')
 		i++;
-		str++;
-	}
-	if (*str == '\n')
+	if (str[i] == '\n')
 		return (i);
 	return (0);
 }
 
 /*
 ** Has as arguments buf, where we stored what was read, ret and saved.
-** First it puts an '\0' at the buffer's end.
-** Then it stores what there is in saved in a temporary string. Like this
-** we can create fro saved a string with strjoin that contains saved with buf.
-** And we free tmp if there's anything inside of it.
+** It stores what there is in saved in a temporary string.
+** Checks if tmp exist or not, then stores in saved either saved and buf or buf.
 */
 
 void	fill_saved(char *buf, int ret, char **saved)
@@ -56,40 +51,38 @@ void	fill_saved(char *buf, int ret, char **saved)
 
 /*
 ** It stores a read line from saved in line.
-** Creates a int newline and a char *temp.
-** temp stores what there's in saved.
-** newline calls find_character to know where in temp there is nl.
-** If newline = 1, nl is at the beginning. So line is created with strnew(0).
-** Else, line is created with strsub, thanks to temp. It starts at the beginning
-** and copies it before newline's position.
-** saved is created thanks to a strdup after newline's position.
-** Finally temp is freed.
+** Creates a int newline and a char *tmp.
+** If newline = 1, nl is at the beginning. Line is created with strnew(0).
+** Else, line is created with strsub starting at temp's beginning and coping it
+** before newline's position.
+** saved is created with strdup after newline's position.
 */
 
 void	line_read(char **line, char **saved)
 {
 	int		newline;
-	char	*temp;
+	char	*tmp;
 
-	temp = *saved;
-	newline = find_character(temp) + 1;
+	tmp = *saved;
+	newline = find_character(tmp) + 1;
 	if (newline == 1)
 		*line = ft_strnew(0);
 	else
-		*line = ft_strsub(temp, 0, newline - 1);
-	*saved = ft_strdup(temp + newline);
-	free(temp);
+		*line = ft_strsub(tmp, 0, newline - 1);
+	*saved = ft_strdup(tmp + newline);
+	free(tmp);
 }
 
 /*
-** Receives 2 arguments, a file descriptor and the line where to store.
+** Receives a file descriptor and the line where to store.
 ** It returns -1, 0 or 1, depending on whether an error happened, the file's
 ** reading has been completed or a line has been read.
-** First it checks if the file does exist and buff_size is a positive value.
-** Then it reads it in a loop and calls fill_saved to store in a static *char.
-** If saved contains nothing or if a newline is found in saved, we break.
-** It checks if ret is negative or nothing is contained in saved.
-** It also checks if reading is done and if no newline had been found in saved.
+** Checks errors and then reads from fd in a loop, calling fill_saved in it,
+** until saved contains nothing or a newline is found.
+** Checks other possible errors after reading.
+** If reading is over and no newline had been found in saved, line takes saved
+** value and if saved is empty so we return 0, else 1.
+** Else we can call line_read and return 1.
 */
 
 int		get_next_line(const int fd, char **line)
@@ -113,6 +106,7 @@ int		get_next_line(const int fd, char **line)
 		*line = saved;
 		if (saved == NULL || saved[0] == '\0')
 			return (0);
+		free(saved);
 		saved = NULL;
 		return (1);
 	}
